@@ -41,6 +41,11 @@ public class Cliente implements Serializable {
 	@CollectionTable(name="TELEFONE")    // nome da tabela auxiliar no BD
 	private Set<String> telefones = new HashSet<>();
 	
+	// O cliente tem que conhecer os pedidos
+	@OneToMany(mappedBy="cliente")
+	private List<Pedido> pedidos = new ArrayList<>(); // coleção não se coloca no construtor
+	
+	
 	// Construtor vazio
 	public Cliente() {
 		
@@ -113,6 +118,14 @@ public class Cliente implements Serializable {
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
 	}
+	
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
 
 	// hasCode
 	@Override
@@ -139,6 +152,8 @@ public class Cliente implements Serializable {
 			return false;
 		return true;
 	}
+
+	
 	
 		
 
