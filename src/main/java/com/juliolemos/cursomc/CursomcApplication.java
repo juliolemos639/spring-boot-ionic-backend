@@ -13,6 +13,7 @@ import com.juliolemos.cursomc.domain.Cidade;
 import com.juliolemos.cursomc.domain.Cliente;
 import com.juliolemos.cursomc.domain.Endereco;
 import com.juliolemos.cursomc.domain.Estado;
+import com.juliolemos.cursomc.domain.ItemPedido;
 import com.juliolemos.cursomc.domain.Pagamento;
 import com.juliolemos.cursomc.domain.PagamentoComBoleto;
 import com.juliolemos.cursomc.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.juliolemos.cursomc.repositories.CidadeRepository;
 import com.juliolemos.cursomc.repositories.ClienteRepository;
 import com.juliolemos.cursomc.repositories.EnderecoRepository;
 import com.juliolemos.cursomc.repositories.EstadoRepository;
+import com.juliolemos.cursomc.repositories.ItemPedidoRepository;
 import com.juliolemos.cursomc.repositories.PagamentoRepository;
 import com.juliolemos.cursomc.repositories.PedidoRepository;
 import com.juliolemos.cursomc.repositories.ProdutoRepository;
@@ -56,6 +58,9 @@ public class CursomcApplication implements CommandLineRunner {
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	// Principal
 	public static void main(String[] args) {
@@ -147,6 +152,29 @@ public class CursomcApplication implements CommandLineRunner {
 		// salvar promeiro os pedidos, pois são independentes
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
+		// Instanciar Itens de pedidos
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+		
+		// Acessar o conjuntinho de ítens
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		// Produto conhecer os seus ítens
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p2.getItens().addAll(Arrays.asList(ip2));
+		
+		// Salvar na base de dados - Criar os repositories
+		// depois...
+		// Salvar os itens, mas antes colocar as dependências no @Wired
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
+				
+		
 	}
 
 }
