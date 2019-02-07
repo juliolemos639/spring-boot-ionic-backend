@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 // Serializable (padrão: 1L)
 @Entity
@@ -25,7 +25,7 @@ public class Estado implements Serializable {
 	
 	// Associações (Inicie as coleçoes) 1:N
 	// Mapeamento 1:N
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany(mappedBy="estado")
 	private List<Cidade> cidades = new ArrayList<>();
 	
@@ -34,7 +34,6 @@ public class Estado implements Serializable {
 	public Estado() {
 		
 	}
-
 
 	public Estado(Integer id, String nome) {
 		super();
@@ -99,8 +98,6 @@ public class Estado implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
 	
 
 }

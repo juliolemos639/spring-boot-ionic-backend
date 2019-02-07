@@ -16,7 +16,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Pedido implements Serializable {
@@ -31,12 +30,10 @@ public class Pedido implements Serializable {
 	
 	// Associações
 	// O Pedido tem um pagamento
-	@JsonManagedReference  // Permitir que pagamento seja serializado
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="pedido") // para não dar erro de dado transiente - peculiaridade do JPA
 	private Pagamento pagamento;
 	
 	// O pedido tem um cliente
-	@JsonManagedReference // Serialização dos clientes
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente;
@@ -138,8 +135,5 @@ public class Pedido implements Serializable {
 		return true;
 	}
 
-
-	 
-	
 
 }
