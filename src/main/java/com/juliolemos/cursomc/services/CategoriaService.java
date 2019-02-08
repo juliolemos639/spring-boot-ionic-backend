@@ -24,8 +24,15 @@ public class CategoriaService {
 				"Objeto não encontrado ! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 		
 	}
+	// Inserção na tabela
 	public Categoria insert(Categoria obj) {
 		obj.setId(null); // Se não for nulo será considerado uma atualização
+		return repo.save(obj);
+	}
+	
+	// Atualização na tabela
+	public Categoria update(Categoria obj) {
+		buscar(obj.getId());
 		return repo.save(obj);
 	}
 }
