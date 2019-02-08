@@ -3,12 +3,12 @@ package com.juliolemos.cursomc.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.juliolemos.cursomc.domain.Categoria;
 import com.juliolemos.cursomc.repositories.CategoriaRepository;
-
-//import javassist.tools.rmi.ObjectNotFoundException;
+import com.juliolemos.cursomc.services.exceptions.DataIntegrityException;
 
 @Service
 public class CategoriaService {
@@ -35,4 +35,16 @@ public class CategoriaService {
 		buscar(obj.getId());
 		return repo.save(obj);
 	}
+	
+	// Exclusão na tabela
+	public void delete(Integer id) {
+		buscar(id);
+		try {
+		repo.deleteById(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
+		}
+	}
+	
 }
