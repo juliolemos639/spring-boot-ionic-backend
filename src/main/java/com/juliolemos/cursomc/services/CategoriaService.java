@@ -1,5 +1,6 @@
 package com.juliolemos.cursomc.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,4 +48,8 @@ public class CategoriaService {
 		}
 	}
 	
+	// endpoint para retornar as categorias
+	public List<Categoria> findALL() {
+		return repo.findAll();
+	}
 }
