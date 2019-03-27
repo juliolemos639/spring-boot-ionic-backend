@@ -28,7 +28,7 @@ public class ClienteDTO implements Serializable {
 	public ClienteDTO() {
 	}
 	
-	// Cria uma entidade Cliente e gerao o DTO
+	// Cria uma entidade Cliente e gera o DTO
 	public ClienteDTO(Cliente obj) {
 		id = obj.getId();
 		nome = obj.getNome();
