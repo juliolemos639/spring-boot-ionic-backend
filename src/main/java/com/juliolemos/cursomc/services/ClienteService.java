@@ -64,7 +64,7 @@ public class ClienteService {
 		}
 	}
 
-	// endpoint para retornar as categorias
+	// endpoint para retornar as categorias  
 	public List<Cliente> findALL() {
 		return repo.findAll();
 	}
